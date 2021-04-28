@@ -1,39 +1,76 @@
-# lingye-gin-gorm
+# lingye-gin-grom
 
 #### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+GO + Gin + Gorm + jwt
 
 #### 软件架构
-软件架构说明
+```text
+# go版本：1.16.3  -->  from go version
+# goland版本：2020.2.4  -->  from https://www.jetbrains.com/go/download/other.html
 
+# bin                       可执行文件执行路径
+# doc                       文档、图片等资源
+# logs                      日志目录
+# src                       源码目录
+   - config                 配置目录
+    - application_config.go 配置文件解析配置
+    - common.go             全局变量
+    - log_config.go         日志配置
+    - datasource_config.go  数据源配置
+   - middleware             中间件目录
+    - gin_engine.go         gin配置
+    - gin_router.go         路由载入配置
+   - pkg                    第三方依赖包目录
+   - rest                   
+    - urls.go               路由配置(绑定路径和处理器之间的关系)
+   - util
+    - util.go               工具类
+   - application.yml        主配置文件
+   - application-dev.yml    环境配置文件   
+   - main.go                应用入口
+# go.mod                    依赖说明文件
+```
 
-#### 安装教程
+#### 配置Goland
+```text
+# File | Settings | Go
+1、GOROOT
+Add SDK...
+Local...（这里选择你的Go安装的根路径，我的是"/usr/local/go"）
+2、Go Modules
+- Enabel Go modules integration打勾
+- 
+3、Go设置代理
+- 查看go 的环境变量 在cmd中 输入go env设置GOPROXY代理：
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
+- 设置GOPRIVATE来跳过私有库，比如常用的Gitee，中间使用逗号分隔：
+go env -w GOPRIVATE=*.gitee.com
+- 如果在运行go mod vendor时，提示Get https://sum.golang.org/lookup/xxxxxx: dial tcp 216.58.200.49:443: i/o timeout，则是因为Go 1.13设置了默认的GOSUMDB=sum.golang.org，这个网站是被墙了的，用于验证包的有效性，可以通过如下命令关闭：
+go env -w GOSUMDB=off
+- 可以设置 GOSUMDB="sum.golang.google.cn"， 这个是专门为国内提供的sum 验证服务。
+go env -w GOSUMDB="sum.golang.google.cn"
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+# Apply，OK
+```
 
 #### 使用说明
+- 配置GOPATH
+  - Preferences | Go | GOPATH | Project GOPATH
+    - add /usr/local/gitee/lingye-gin-gorm/src (这个路径以你本地的路径为准, 这个一定要先配置, 不然执行go mod tidy会找不到依赖)
+    - Index entire GOPATH, 打勾
+    
+- 如果没有go.mod文件, 执行：go mod init lingye-gin
+- 执行：go mod tidy, 下载依赖包
+- 运行配置
+![avatar](./doc/images/build_config.png)
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
-
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
-
-
-#### 特技
-
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+#### 第三方开发文档
+```
+# gin
+https://gin-gonic.com/docs/quickstart/
+# gorm
+https://jasperxu.com/gorm-zh/
+# sql转struct
+http://sql2struct.atotoa.com/
+```
