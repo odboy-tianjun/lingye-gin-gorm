@@ -12,14 +12,21 @@ GO + Gin + Gorm + jwt
 # doc                       文档、图片等资源
 # logs                      日志目录
 # src                       源码目录
-   - config                 配置目录
+   - base                   基础结构体
+   - config                 
     - application_config.go 配置文件解析配置
     - common.go             全局变量
-    - log_config.go         日志配置
     - datasource_config.go  数据源配置
-   - middleware             中间件目录
+    - log_config.go         日志配置
+   - dao                    
+    - user_dao.go           user's sql
+   - entity
+    - user.go               user's gorm struct
+   - middleware             
     - gin_engine.go         gin配置
     - gin_router.go         路由载入配置
+    - jwt_engine.go         jwt配置
+    - redis_client.go       redis配置
    - pkg                    第三方依赖包目录
    - rest                   
     - urls.go               路由配置(绑定路径和处理器之间的关系)
