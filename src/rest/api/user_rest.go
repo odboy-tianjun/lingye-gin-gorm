@@ -5,8 +5,8 @@ import (
 	"lingye-gin/src/service"
 	"lingye-gin/src/service/dto"
 	"lingye-gin/src/service/query"
+	"lingye-gin/src/util"
 	"net/http"
-	"strconv"
 )
 
 func DescribeUsers(c *gin.Context) {
@@ -23,8 +23,7 @@ func DescribeUsers(c *gin.Context) {
 
 func DescribeUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
-	uid, _ := strconv.Atoi(id)
-	user := new(service.UserService).DescribeUserById(uint(uid))
+	user := new(service.UserService).DescribeUserById(util.StringToUInt(id))
 	if user.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
 			"code":    http.StatusNotFound,
@@ -52,8 +51,7 @@ func CreateUser(c *gin.Context) {
 
 func ModifyUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
-	uid, _ := strconv.Atoi(id)
-	localUser := new(service.UserService).DescribeUserById(uint(uid))
+	localUser := new(service.UserService).DescribeUserById(util.StringToUInt(id))
 	if localUser.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
 			"code":    http.StatusNotFound,
@@ -73,8 +71,8 @@ func ModifyUserById(c *gin.Context) {
 
 func DeleteUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
-	uid, _ := strconv.Atoi(id)
-	localUser := new(service.UserService).DescribeUserById(uint(uid))
+	uid := util.StringToUInt(id)
+	localUser := new(service.UserService).DescribeUserById(uid)
 	if localUser.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
 			"code":    http.StatusNotFound,
@@ -82,7 +80,7 @@ func DeleteUserById(c *gin.Context) {
 		})
 		return
 	} else {
-		new(service.UserService).RemoveById(uint(uid))
+		new(service.UserService).RemoveById(uid)
 		c.JSON(http.StatusOK, gin.H{
 			"code":    http.StatusOK,
 			"message": "success",

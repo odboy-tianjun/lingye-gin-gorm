@@ -127,3 +127,9 @@ func StructCopy(source interface{}, target interface{}) {
 		}
 	}
 }
+
+// 字符串转uint
+func StringToUInt(number string) uint {
+	result, _ := strconv.Atoi(number)
+	return uint(result)
+}
