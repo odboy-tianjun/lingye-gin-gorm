@@ -4,7 +4,7 @@ import (
 	"time"
 )
 
-type BaseDO struct {
+type LingYeDO struct {
 	// 自增ID
 	ID uint `gorm:"column:id;type:bigint(20);not null;primary_key;AUTO_INCREMENT" json:"id" form:"id"`
 	// 创建时间
