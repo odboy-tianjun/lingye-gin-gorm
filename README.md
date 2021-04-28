@@ -63,7 +63,7 @@ go env -w GOSUMDB="sum.golang.google.cn"
 - 如果没有go.mod文件, 执行：go mod init lingye-gin
 - 执行：go mod tidy, 下载依赖包
 - 运行配置
-![avatar](./doc/images/build_config.png)
+![avatar](./doc/images/build_config.jpg)
 
 #### 第三方开发文档
 ```
@@ -73,4 +73,16 @@ https://gin-gonic.com/docs/quickstart/
 https://jasperxu.com/gorm-zh/
 # sql转struct
 http://sql2struct.atotoa.com/
+```
+
+#### 进度
+```text
+1、go接入gin(完成)
+2、go接入gorm(完成)
+3、自定义yaml配置(完成)
+4、多库支持(完成)
+5、接入日志(完成)
+6、接入redis(完成)
+7、自定义gorm路由(完成)
+8、接入jwt(完成)
 ```
