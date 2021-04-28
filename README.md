@@ -90,6 +90,6 @@ http://sql2struct.atotoa.com/
 4、多库支持(完成)
 5、接入日志(完成)
 6、接入redis(完成)
-7、自定义gorm路由(完成)
+7、自定义gin路由(完成)
 8、接入jwt(完成)
 ```
