@@ -13,6 +13,8 @@ type GinRouter struct {
 
 func (v GinRouter) Init(r *gin.Engine) {
 	config.Logger.Info("GinRouter Init")
+	// 全局异常拦截器
+	r.Use(GinPanic)
 
 	// 一般路由映射关系
 	groupMap := make(map[string]*gin.RouterGroup)
