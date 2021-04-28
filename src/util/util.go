@@ -8,6 +8,7 @@ import (
 	"lingye-gin/src/config"
 	"net/http"
 	"net/url"
+	"reflect"
 	"sort"
 	"strconv"
 	"time"
@@ -109,5 +110,20 @@ func VerifySign(c *gin.Context) {
 	if sn == "" || sn != CreateSign(req) {
 		RetJson("500", "Sn Error", "", c)
 		return
+	}
+}
+
+// source  有数据的结构体
+// target  空的结构体
+func StructCopy(source interface{}, target interface{}) {
+	sourceVal := reflect.ValueOf(source).Elem() // 获取reflect.Type类型
+	targetVal := reflect.ValueOf(target).Elem() // 获取reflect.Type类型
+	vTypeOfT := sourceVal.Type()
+	for i := 0; i < sourceVal.NumField(); i++ {
+		// 在要空的结构体中查询有数据结构体中相同属性的字段，有则修改其值
+		name := vTypeOfT.Field(i).Name
+		if ok := targetVal.FieldByName(name).IsValid(); ok {
+			targetVal.FieldByName(name).Set(reflect.ValueOf(sourceVal.Field(i).Interface()))
+		}
 	}
 }
