@@ -1,0 +1,33 @@
+app:
+  mode: debug
+  name: LingYeGinGorm
+
+server:
+  port: 8088
+
+log:
+  file:
+    path: ../logs
+    name: lingyeGinGorm.log
+  level: debug
+
+redis:
+  addr: localhost:6379
+  passwd: 
+  database: 10
+
+database:
+  dialect: mysql
+  datasources:
+    mysql:
+      addr: localhost:3306
+      username: root
+      password: 123456
+      database: test
+    sqlite3:
+      dbfile: ./sqlite3.db
+      
+jwt:
+  # MD5 SHA256
+  secret: 878bb8ef8807b5ddbcbddbf909e5526262cf74a54fb523cee17e5b80a1b7510d
+  expiry: 3600
