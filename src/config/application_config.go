@@ -41,6 +41,10 @@ type RedisConfig struct {
 	Passwd string `yaml:"passwd"`
 	// 库索引
 	Database int `yaml:"database"`
+	// 最大等待时间
+	MaxIdle int `yaml:"max-idle"`
+	// 最大连接数
+	MaxActive int `yaml:"max-active"`
 }
 
 type DataBaseConfig struct {
@@ -68,7 +72,7 @@ type DataSourceMySQLConfig struct {
 
 type DataSourceSQLite3Config struct {
 	// 数据库文件
-	DBFile string `yaml:"dbfile"`
+	DBFile string `yaml:"db-file"`
 }
 
 type JWTConfig struct {
