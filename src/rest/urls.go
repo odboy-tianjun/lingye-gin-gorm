@@ -2,7 +2,7 @@ package rest
 
 import (
 	"github.com/gin-gonic/gin"
-	v3 "lingye-gin/src/rest/api"
+	"lingye-gin/src/rest/api"
 	v1 "lingye-gin/src/rest/v1"
 	v2 "lingye-gin/src/rest/v2"
 	"lingye-gin/src/util"
@@ -39,5 +39,14 @@ var Urls = [...]RequestApi{
 	// v2
 	{GroupName: "v2", GroupHandleFunction: util.VerifySign, Mode: "get", RelativePath: "/students", HandleFunction: v2.DescribeStudents},
 	// api jwt
-	{GroupName: "api", Mode: "get", RelativePath: "/students", HandleFunction: v3.DescribeStudents},
+	// 获取所有用户
+	{GroupName: "api", Mode: "get", RelativePath: "/users", HandleFunction: api.DescribeUsers},
+	// 根据ID获取用户
+	{GroupName: "api", Mode: "get", RelativePath: "/users/:id", HandleFunction: api.DescribeUserById},
+	// 保存用户
+	{GroupName: "api", Mode: "post", RelativePath: "/users", HandleFunction: api.CreateUser},
+	// 根据ID更新用户
+	{GroupName: "api", Mode: "put", RelativePath: "/users/:id", HandleFunction: api.ModifyUserById},
+	// 根据ID删除用户
+	{GroupName: "api", Mode: "delete", RelativePath: "/users/:id", HandleFunction: api.DeleteUserById},
 }

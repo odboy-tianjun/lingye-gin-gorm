@@ -3,7 +3,7 @@ package dao
 import (
 	"lingye-gin/src/config"
 	"lingye-gin/src/entity"
-	"lingye-gin/src/service/dto"
+	"lingye-gin/src/service/query"
 	"lingye-gin/src/util"
 )
 
@@ -36,29 +36,37 @@ func (UserDAO) SelectList(resource entity.User) []entity.User {
 }
 
 // 条件分页查询
-func (UserDAO) SelectPage(dto dto.UserDTO) []entity.User {
+func (UserDAO) SelectPage(condition query.UserQuery) ([]entity.User, int) {
 	var users []entity.User
+	var total int
 
-	page, pageSize := util.FixPage(dto.Page, dto.PageSize)
+	page, pageSize := util.FixPage(condition.Page, condition.PageSize)
 	// 分页条件
-	pageConfig := config.SqlExcutor.Where("username LIKE ?", "%"+dto.Username+"%")
+	pageConfig := config.SqlExcutor.Where("username LIKE ?", "%"+condition.Username+"%")
 	// 分页参数
 	pageConfig = pageConfig.Limit((page - 1) * pageSize).Offset(pageSize)
-	pageConfig.Find(&users)
-	return users
+	pageConfig = pageConfig.Find(&users)
+	// 统计数量
+	pageConfig.Count(&total)
+	return users, total
 }
 
-func test() {
-	//
-	//user := entity.User{Username: "lingye"}
-	//
-	//userDAO := dao.UserDAO{}
-	//userDAO.Insert(&user)
-	//userDAO.SelectAll()
-	//userDAO.SelectOne(1)
-	//userDAO.SelectList(user)
-	//
-	//dto := dto2.UserDTO{}
-	//dto.Username = "测试"
-	//userDAO.SelectPage(dto)
+func (UserDAO) UpdateAll(user *entity.User) {
+	config.SqlExcutor.Save(&user)
+}
+
+// 更新特定字段
+func (UserDAO) UpdateById(user *entity.User) {
+	model := &entity.User{}
+	model.ID = user.ID
+	config.SqlExcutor.Model(model).Updates(map[string]interface{}{
+		"username": user.UserName,
+	})
+}
+
+// 删除
+func (UserDAO) DeleteById(id uint) {
+	user := entity.User{}
+	user.ID = id
+	config.SqlExcutor.Delete(&user)
 }
