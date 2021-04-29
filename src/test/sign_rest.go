@@ -17,5 +17,5 @@ func DescribeSign(c *gin.Context) {
 	}
 	res["sn"] = util.CreateSign(params)
 	res["ts"] = ts
-	util.RetJson("200", "", res, c)
+	util.RSuccessJson(c, res)
 }

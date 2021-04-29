@@ -2,6 +2,8 @@ package v2
 
 import (
 	"github.com/gin-gonic/gin"
+	"lingye-gin/src/base"
+	"lingye-gin/src/util"
 )
 
 type Student struct {
@@ -12,9 +14,9 @@ type Student struct {
 
 func DescribeStudents(c *gin.Context) {
 	var students []Student
-	c.JSON(200, gin.H{
-		"data":     students,
-		"page":     1,
-		"pageSize": 15,
-	})
+	var pageData base.SimplePageData
+
+	pageData.Total = 0
+	pageData.Data = students
+	util.RSuccessWithMsgJson(c, "分页获取学生列表成功!", pageData)
 }

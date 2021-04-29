@@ -6,7 +6,6 @@ import (
 	"lingye-gin/src/modules/system/service/dto"
 	"lingye-gin/src/modules/system/service/query"
 	"lingye-gin/src/util"
-	"net/http"
 )
 
 // 统一Service对象
@@ -15,30 +14,18 @@ var userService = &service.UserService{}
 func DescribeUsers(c *gin.Context) {
 	var userQuery query.UserQuery
 	_ = c.BindJSON(&userQuery)
-
 	users, total := userService.DescribeUsers(userQuery)
-	c.JSON(http.StatusOK, gin.H{
-		"code":  http.StatusOK,
-		"data":  users,
-		"total": total,
-	})
+	util.RSuccessJson(c, util.BuildPageData(users, total))
 }
 
 func DescribeUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
 	user := userService.DescribeUserById(util.StringToUInt64(id))
 	if user.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{
-			"code":    http.StatusNotFound,
-			"message": "user not found",
-		})
+		util.RErrorMsg(c, "该用户信息未查询到")
 		return
 	}
-	c.JSON(http.StatusOK, gin.H{
-		"code":    http.StatusOK,
-		"message": "success",
-		"data":    user,
-	})
+	util.RSuccessJson(c, user)
 }
 
 func CreateUser(c *gin.Context) {
@@ -46,29 +33,20 @@ func CreateUser(c *gin.Context) {
 	// 绑定一个请求主体到一个类型
 	_ = c.BindJSON(&userDTO)
 	userService.Save(&userDTO)
-	c.JSON(http.StatusOK, gin.H{
-		"code":    http.StatusOK,
-		"message": "success",
-	})
+	util.RSuccessMsg(c, "创建成功!")
 }
 
 func ModifyUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
 	localUser := userService.DescribeUserById(util.StringToUInt64(id))
 	if localUser.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{
-			"code":    http.StatusNotFound,
-			"message": "user not found",
-		})
+		util.RErrorMsg(c, "非法操作, 该用户信息未查询到!")
 		return
 	} else {
 		var userDTO dto.UserDTO
 		_ = c.BindJSON(&userDTO)
 		userService.ModifyById(&userDTO)
-		c.JSON(http.StatusOK, gin.H{
-			"code":    http.StatusOK,
-			"message": "success",
-		})
+		util.RSuccessMsg(c, "修改成功!")
 	}
 }
 
@@ -77,16 +55,10 @@ func DeleteUserById(c *gin.Context) {
 	uid := util.StringToUInt64(id)
 	localUser := userService.DescribeUserById(uid)
 	if localUser.ID == 0 {
-		c.JSON(http.StatusNotFound, gin.H{
-			"code":    http.StatusNotFound,
-			"message": "user not found",
-		})
+		util.RErrorMsg(c, "非法操作, 该用户信息未查询到!")
 		return
 	} else {
 		userService.RemoveById(uid)
-		c.JSON(http.StatusOK, gin.H{
-			"code":    http.StatusOK,
-			"message": "success",
-		})
+		util.RSuccessMsg(c, "删除成功!")
 	}
 }

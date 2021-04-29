@@ -1,6 +1,6 @@
 package base
 
 type SimplePageData struct {
-	total uint        `json:"total"`
-	data  interface{} `json:"data"`
+	Total int         `json:"total"`
+	Data  interface{} `json:"data"`
 }

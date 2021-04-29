@@ -3,6 +3,8 @@ package v1
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
+	"lingye-gin/src/base"
+	"lingye-gin/src/util"
 )
 
 type Student struct {
@@ -13,11 +15,11 @@ type Student struct {
 
 func DescribeStudents(c *gin.Context) {
 	var students []Student
-	c.JSON(200, gin.H{
-		"data":     students,
-		"page":     1,
-		"pageSize": 15,
-	})
+	var pageData base.SimplePageData
+
+	pageData.Total = 0
+	pageData.Data = students
+	util.RSuccessWithMsgJson(c, "分页获取学生列表成功!", pageData)
 }
 
 func DescribeStudentById(c *gin.Context) {
@@ -25,17 +27,17 @@ func DescribeStudentById(c *gin.Context) {
 	fmt.Println("id=", id)
 	var student Student
 	if student.ID == 0 {
-		c.JSON(404, gin.H{"message": "student not found"})
+		util.RErrorJson(c, "没有找到该学生信息", nil)
 		return
 	}
-	c.JSON(200, student)
+	util.RSuccessJson(c, student)
 }
 
 func CreateStudent(c *gin.Context) {
 	var student Student
 	// 绑定一个请求主体到一个类型
 	_ = c.BindJSON(&student)
-	c.JSON(200, "创建成功")
+	util.RSuccessWithMsgJson(c, "创建成功", nil)
 }
 
 func ModifyStudentById(c *gin.Context) {
@@ -43,11 +45,11 @@ func ModifyStudentById(c *gin.Context) {
 	fmt.Println("id=", id)
 	var student Student
 	if student.ID == 0 {
-		c.JSON(404, gin.H{"message": "student not found"})
+		util.RErrorJson(c, "非法操作, 没有找到该学生信息!", nil)
 		return
 	} else {
 		_ = c.BindJSON(&student)
-		c.JSON(200, student)
+		util.RSuccessJson(c, student)
 	}
 }
 
@@ -56,10 +58,10 @@ func DeleteStudentById(c *gin.Context) {
 	fmt.Println("id=", id)
 	var student Student
 	if student.ID == 0 {
-		c.JSON(404, gin.H{"message": "student not found"})
+		util.RErrorJson(c, "非法操作, 没有找到该学生信息!", nil)
 		return
 	} else {
 		_ = c.BindJSON(&student)
-		c.JSON(200, gin.H{"message": "delete success"})
+		util.RSuccessMsg(c, "删除成功")
 	}
 }

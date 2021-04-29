@@ -3,11 +3,15 @@ package main
 import (
 	"lingye-gin/src/config"
 	"lingye-gin/src/middleware"
+	v1 "lingye-gin/src/test/v1"
 )
 
 func main() {
 	// 初始化yaml配置
 	new(config.ApplicationProperties).Init()
+
+	v1.DescribeStudents(nil)
+
 	// 初始化redis
 	new(middleware.RedisPool).Init()
 	// 初始化gorm, 注册表
