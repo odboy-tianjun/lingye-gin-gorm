@@ -8,37 +8,39 @@ import (
 	"lingye-gin/src/util"
 )
 
-type UserService struct{}
+type UserService struct {
+	userDao dao.UserDAO
+}
 
-func (UserService) Save(resource *dto.UserDTO) {
+func (service UserService) Save(resource *dto.UserDTO) {
 	if resource.ID != 0 {
 		panic("id is not zero")
 	}
 	record := &entity.User{}
 	util.StructCopy(resource, record)
-	new(dao.UserDAO).Insert(record)
+	service.userDao.Insert(record)
 }
 
-func (UserService) RemoveById(id uint) {
+func (service UserService) RemoveById(id uint) {
 	if id == 0 {
 		panic("id is zero")
 	}
-	new(dao.UserDAO).DeleteById(id)
+	service.userDao.DeleteById(id)
 }
 
-func (UserService) ModifyById(resource *dto.UserDTO) {
+func (service UserService) ModifyById(resource *dto.UserDTO) {
 	if resource.ID == 0 {
 		panic("id is zero")
 	}
 	record := &entity.User{}
 	util.StructCopy(resource, record)
-	new(dao.UserDAO).UpdateById(record)
+	service.userDao.UpdateById(record)
 }
 
-func (UserService) DescribeUsers(condition query.UserQuery) ([]entity.User, int) {
-	return new(dao.UserDAO).SelectPage(condition)
+func (service UserService) DescribeUsers(condition query.UserQuery) ([]entity.User, int) {
+	return service.userDao.SelectPage(condition)
 }
 
-func (UserService) DescribeUserById(id uint) entity.User {
-	return new(dao.UserDAO).SelectOne(id)
+func (service UserService) DescribeUserById(id uint) entity.User {
+	return service.userDao.SelectOne(id)
 }

@@ -9,11 +9,14 @@ import (
 	"net/http"
 )
 
+// 统一Service对象
+var userService = &service.UserService{}
+
 func DescribeUsers(c *gin.Context) {
 	var userQuery query.UserQuery
 	_ = c.BindJSON(&userQuery)
 
-	users, total := new(service.UserService).DescribeUsers(userQuery)
+	users, total := userService.DescribeUsers(userQuery)
 	c.JSON(http.StatusOK, gin.H{
 		"code":  http.StatusOK,
 		"data":  users,
@@ -23,7 +26,7 @@ func DescribeUsers(c *gin.Context) {
 
 func DescribeUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
-	user := new(service.UserService).DescribeUserById(util.StringToUInt(id))
+	user := userService.DescribeUserById(util.StringToUInt(id))
 	if user.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
 			"code":    http.StatusNotFound,
@@ -42,7 +45,7 @@ func CreateUser(c *gin.Context) {
 	var userDTO dto.UserDTO
 	// 绑定一个请求主体到一个类型
 	_ = c.BindJSON(&userDTO)
-	new(service.UserService).Save(&userDTO)
+	userService.Save(&userDTO)
 	c.JSON(http.StatusOK, gin.H{
 		"code":    http.StatusOK,
 		"message": "success",
@@ -51,7 +54,7 @@ func CreateUser(c *gin.Context) {
 
 func ModifyUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
-	localUser := new(service.UserService).DescribeUserById(util.StringToUInt(id))
+	localUser := userService.DescribeUserById(util.StringToUInt(id))
 	if localUser.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
 			"code":    http.StatusNotFound,
@@ -61,7 +64,7 @@ func ModifyUserById(c *gin.Context) {
 	} else {
 		var userDTO dto.UserDTO
 		_ = c.BindJSON(&userDTO)
-		new(service.UserService).ModifyById(&userDTO)
+		userService.ModifyById(&userDTO)
 		c.JSON(http.StatusOK, gin.H{
 			"code":    http.StatusOK,
 			"message": "success",
@@ -72,7 +75,7 @@ func ModifyUserById(c *gin.Context) {
 func DeleteUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
 	uid := util.StringToUInt(id)
-	localUser := new(service.UserService).DescribeUserById(uid)
+	localUser := userService.DescribeUserById(uid)
 	if localUser.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
 			"code":    http.StatusNotFound,
@@ -80,7 +83,7 @@ func DeleteUserById(c *gin.Context) {
 		})
 		return
 	} else {
-		new(service.UserService).RemoveById(uid)
+		userService.RemoveById(uid)
 		c.JSON(http.StatusOK, gin.H{
 			"code":    http.StatusOK,
 			"message": "success",

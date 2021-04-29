@@ -10,12 +10,12 @@ import (
 type UserDAO struct{}
 
 // 新增
-func (UserDAO) Insert(resource *entity.User) {
+func (dao UserDAO) Insert(resource *entity.User) {
 	config.SqlExcutor.Create(resource)
 }
 
 // ID查询
-func (UserDAO) SelectOne(id uint) entity.User {
+func (dao UserDAO) SelectOne(id uint) entity.User {
 	var user entity.User
 	config.SqlExcutor.First(&user, id)
 	return user
