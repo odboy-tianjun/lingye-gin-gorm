@@ -17,7 +17,7 @@ GO + Gin + Gorm + jwt
     - application_config.go 配置文件解析配置
     - common.go             全局变量
     - context_config.go     上下文预留配置
-    - datasource_config.go  数据源配置
+    - datasource_config.go  数据源配置(important: 注册数据结构体)
     - log_config.go         日志配置
    - middleware             
     - gin_engine.go         gin配置
@@ -25,6 +25,7 @@ GO + Gin + Gorm + jwt
     - gin_router.go         路由载入配置
     - jwt_engine.go         jwt配置
     - redis_client.go       redis配置
+    - urls.go               路由配置(important: 绑定路径和处理器之间的关系)
    - modules                
     - system                        系统模块
         - rest
@@ -42,7 +43,6 @@ GO + Gin + Gorm + jwt
    - application.yml        主配置文件
    - application-dev.yml    环境配置文件   
    - main.go                应用入口
-   - urls.go                路由配置(绑定路径和处理器之间的关系)
 # go.mod                    依赖说明文件
 ```
 

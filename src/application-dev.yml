@@ -13,7 +13,7 @@ log:
 
 redis:
   addr: localhost:6379
-  passwd: 
+  passwd:
   database: 10
   max-idle: 50
   max-active: 100
@@ -28,7 +28,7 @@ database:
       database: test
     sqlite3:
       db-file: ./sqlite3.db
-      
+
 jwt:
   # MD5 SHA256
   secret: 878bb8ef8807b5ddbcbddbf909e5526262cf74a54fb523cee17e5b80a1b7510d
