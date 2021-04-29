@@ -1,10 +1,10 @@
 package service
 
 import (
-	"lingye-gin/src/dao"
-	"lingye-gin/src/entity"
-	"lingye-gin/src/service/dto"
-	"lingye-gin/src/service/query"
+	"lingye-gin/src/modules/system/dao"
+	"lingye-gin/src/modules/system/entity"
+	"lingye-gin/src/modules/system/service/dto"
+	"lingye-gin/src/modules/system/service/query"
 	"lingye-gin/src/util"
 )
 

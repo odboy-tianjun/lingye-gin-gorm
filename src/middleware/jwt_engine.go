@@ -4,7 +4,7 @@ import (
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 	"lingye-gin/src/config"
-	"lingye-gin/src/entity"
+	"lingye-gin/src/modules/system/entity"
 	"net/http"
 	"strings"
 	"time"

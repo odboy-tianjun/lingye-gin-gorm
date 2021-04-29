@@ -2,8 +2,8 @@ package dao
 
 import (
 	"lingye-gin/src/config"
-	"lingye-gin/src/entity"
-	"lingye-gin/src/service/query"
+	"lingye-gin/src/modules/system/entity"
+	"lingye-gin/src/modules/system/service/query"
 	"lingye-gin/src/util"
 )
 

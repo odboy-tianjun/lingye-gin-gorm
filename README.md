@@ -16,25 +16,33 @@ GO + Gin + Gorm + jwt
    - config                 
     - application_config.go 配置文件解析配置
     - common.go             全局变量
+    - context_config.go     上下文预留配置
     - datasource_config.go  数据源配置
     - log_config.go         日志配置
-   - dao                    
-    - user_dao.go           user's sql
-   - entity
-    - user.go               user's gorm struct
    - middleware             
     - gin_engine.go         gin配置
+    - gin_panic.go          全局异常捕捉, 统一返回
     - gin_router.go         路由载入配置
     - jwt_engine.go         jwt配置
     - redis_client.go       redis配置
+   - modules                
+    - system                        系统模块
+        - rest
+            - user_rest.go          user's controller
+        - dao                    
+            - user_dao.go           user's sql
+        - entity
+            - user.go               user's gorm struct  
+        - service
+            - user_service.go       user's service                
+            
    - pkg                    第三方依赖包目录
-   - rest                   
-    - urls.go               路由配置(绑定路径和处理器之间的关系)
    - util
     - util.go               工具类
    - application.yml        主配置文件
    - application-dev.yml    环境配置文件   
    - main.go                应用入口
+   - urls.go                路由配置(绑定路径和处理器之间的关系)
 # go.mod                    依赖说明文件
 ```
 

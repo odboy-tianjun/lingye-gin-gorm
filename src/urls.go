@@ -1,10 +1,11 @@
-package rest
+package main
 
 import (
 	"github.com/gin-gonic/gin"
-	"lingye-gin/src/rest/api"
-	v1 "lingye-gin/src/rest/v1"
-	v2 "lingye-gin/src/rest/v2"
+	"lingye-gin/src/modules/system/rest"
+	"lingye-gin/src/test"
+	v1 "lingye-gin/src/test/v1"
+	v2 "lingye-gin/src/test/v2"
 	"lingye-gin/src/util"
 )
 
@@ -24,9 +25,9 @@ type RequestApi struct {
 // 定义变长数组变量
 var Urls = [...]RequestApi{
 	// 定义请求方式和路径
-	{Mode: "get", RelativePath: "/sn", HandleFunction: DescribeSign},
+	{Mode: "get", RelativePath: "/sn", HandleFunction: test.DescribeSign},
 	// 获取所有用户
-	{Mode: "get", RelativePath: "/users", HandleFunction: api.DescribeUsers},
+	{Mode: "get", RelativePath: "/users", HandleFunction: rest.DescribeUsers},
 	// v1
 	// 获取所有学生
 	{GroupName: "v1", Mode: "get", RelativePath: "/students", HandleFunction: v1.DescribeStudents},
@@ -42,13 +43,13 @@ var Urls = [...]RequestApi{
 	{GroupName: "v2", GroupHandleFunction: util.VerifySign, Mode: "get", RelativePath: "/students", HandleFunction: v2.DescribeStudents},
 	// api jwt
 	// 获取所有用户
-	{GroupName: "api", Mode: "get", RelativePath: "/users", HandleFunction: api.DescribeUsers},
+	{GroupName: "api", Mode: "get", RelativePath: "/users", HandleFunction: rest.DescribeUsers},
 	// 根据ID获取用户
-	{GroupName: "api", Mode: "get", RelativePath: "/users/:id", HandleFunction: api.DescribeUserById},
+	{GroupName: "api", Mode: "get", RelativePath: "/users/:id", HandleFunction: rest.DescribeUserById},
 	// 保存用户
-	{GroupName: "api", Mode: "post", RelativePath: "/users", HandleFunction: api.CreateUser},
+	{GroupName: "api", Mode: "post", RelativePath: "/users", HandleFunction: rest.CreateUser},
 	// 根据ID更新用户
-	{GroupName: "api", Mode: "put", RelativePath: "/users/:id", HandleFunction: api.ModifyUserById},
+	{GroupName: "api", Mode: "put", RelativePath: "/users/:id", HandleFunction: rest.ModifyUserById},
 	// 根据ID删除用户
-	{GroupName: "api", Mode: "delete", RelativePath: "/users/:id", HandleFunction: api.DeleteUserById},
+	{GroupName: "api", Mode: "delete", RelativePath: "/users/:id", HandleFunction: rest.DeleteUserById},
 }

@@ -1,10 +1,10 @@
-package api
+package rest
 
 import (
 	"github.com/gin-gonic/gin"
-	"lingye-gin/src/service"
-	"lingye-gin/src/service/dto"
-	"lingye-gin/src/service/query"
+	"lingye-gin/src/modules/system/service"
+	"lingye-gin/src/modules/system/service/dto"
+	"lingye-gin/src/modules/system/service/query"
 	"lingye-gin/src/util"
 	"net/http"
 )
