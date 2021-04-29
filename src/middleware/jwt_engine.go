@@ -22,7 +22,7 @@ const HeadLingYe = "LingYe"
 // 继承jwt提供给载荷，扩展自己所需字段
 type JwtClaims struct {
 	jwt.StandardClaims
-	UserId   uint     `json:"id"`        // 用户ID
+	UserId   uint64   `json:"id"`        // 用户ID
 	UserName string   `json:"username"`  // 用户名
 	NickName string   `json:"nickname"`  // 用户昵称
 	Email    string   `json:"email"`     // 邮箱账号

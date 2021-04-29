@@ -21,7 +21,7 @@ func (service UserService) Save(resource *dto.UserDTO) {
 	service.userDao.Insert(record)
 }
 
-func (service UserService) RemoveById(id uint) {
+func (service UserService) RemoveById(id uint64) {
 	if id == 0 {
 		panic("id is zero")
 	}
@@ -41,6 +41,6 @@ func (service UserService) DescribeUsers(condition query.UserQuery) ([]entity.Us
 	return service.userDao.SelectPage(condition)
 }
 
-func (service UserService) DescribeUserById(id uint) entity.User {
+func (service UserService) DescribeUserById(id uint64) entity.User {
 	return service.userDao.SelectOne(id)
 }

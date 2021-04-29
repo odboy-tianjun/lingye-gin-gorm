@@ -6,16 +6,15 @@ import (
 
 type LingYeDO struct {
 	// 自增ID
-	ID uint `gorm:"column:id;type:bigint(20);not null;primary_key;AUTO_INCREMENT" json:"id" form:"id"`
+	ID uint64 `gorm:"column:id;type:bigint(20);not null;primary_key;AUTO_INCREMENT;comment:'自增ID'"`
 	// 创建时间
-	CreatedAt time.Time
+	CreatedAt time.Time `gorm:"comment:'创建时间'"`
 	// 更新时间
-	UpdatedAt time.Time
+	UpdatedAt time.Time `gorm:"comment:'更新时间'"`
 	// 删除时间
-	DeletedAt *time.Time `sql:"index"`
-	// 扩展字段
+	DeletedAt *time.Time `gorm:"comment:'删除时间'" sql:"index"`
 	// 创建者
-	CreatedBy string
-	// 删除者
-	UpdatedBy string
+	CreatedBy string `gorm:"comment:'创建者'"`
+	// 更新者
+	UpdatedBy string `gorm:"comment:'更新者'"`
 }

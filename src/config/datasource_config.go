@@ -6,8 +6,8 @@ import (
 	_ "github.com/jinzhu/gorm/dialects/mssql"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 	_ "github.com/jinzhu/gorm/dialects/postgres"
-	//_ "github.com/jinzhu/gorm/dialects/sqlite"
 	"lingye-gin/src/modules/system/entity"
+
 	"strings"
 )
 
@@ -50,10 +50,25 @@ func (v DataSourcePool) Connect() DataSourcePool {
 	return v
 }
 
-// 统一在这里注册数据表
+// 注册数据表
 func (DataSourcePool) LoadEntity() {
 	// 自动迁移模式
 	if SqlExcutor != nil {
-		SqlExcutor.AutoMigrate(&entity.User{})
+		SqlExcutor.AutoMigrate(
+			&entity.Dept{},
+			&entity.DictData{},
+			&entity.DictType{},
+			&entity.Job{},
+			&entity.Menu{},
+			&entity.Notice{},
+			&entity.OperateLog{},
+			&entity.Position{},
+			&entity.Role{},
+			&entity.RoleDept{},
+			&entity.RoleMenu{},
+			&entity.User{},
+			&entity.UserPosition{},
+			&entity.UserRole{},
+		)
 	}
 }

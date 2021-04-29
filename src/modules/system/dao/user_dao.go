@@ -15,7 +15,7 @@ func (dao UserDAO) Insert(resource *entity.User) {
 }
 
 // ID查询
-func (dao UserDAO) SelectOne(id uint) entity.User {
+func (dao UserDAO) SelectOne(id uint64) entity.User {
 	var user entity.User
 	config.SqlExcutor.First(&user, id)
 	return user
@@ -65,7 +65,7 @@ func (UserDAO) UpdateById(user *entity.User) {
 }
 
 // 删除
-func (UserDAO) DeleteById(id uint) {
+func (UserDAO) DeleteById(id uint64) {
 	user := entity.User{}
 	user.ID = id
 	config.SqlExcutor.Delete(&user)

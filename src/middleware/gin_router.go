@@ -3,7 +3,6 @@ package middleware
 import (
 	"fmt"
 	"github.com/gin-gonic/gin"
-	"lingye-gin/src"
 	"lingye-gin/src/config"
 	"strings"
 )
@@ -19,11 +18,11 @@ func (v GinRouter) Init(r *gin.Engine) {
 	// 一般路由映射关系
 	groupMap := make(map[string]*gin.RouterGroup)
 	// api路由映射关系
-	apiUrls := make([]main.RequestApi, 0)
+	apiUrls := make([]RequestApi, 0)
 	// api组名称
 	apiGroupName := "api"
 
-	for _, normalRa := range main.Urls {
+	for _, normalRa := range Urls {
 		// 判断是否在某一组下
 		if strings.Compare(normalRa.GroupName, "") == 0 {
 			// 批量处理
@@ -68,7 +67,7 @@ func (v GinRouter) Init(r *gin.Engine) {
 	config.Logger.Info("GinRouter Ok")
 }
 
-func handle(request main.RequestApi, engine *gin.Engine) bool {
+func handle(request RequestApi, engine *gin.Engine) bool {
 	// get
 	if strings.Compare(request.Mode, "get") == 0 {
 		engine.GET(request.RelativePath, request.HandleFunction)
@@ -92,7 +91,7 @@ func handle(request main.RequestApi, engine *gin.Engine) bool {
 	return false
 }
 
-func handleGroup(request main.RequestApi, group *gin.RouterGroup) bool {
+func handleGroup(request RequestApi, group *gin.RouterGroup) bool {
 	// get
 	if strings.Compare(request.Mode, "get") == 0 {
 		group.GET(request.RelativePath, request.HandleFunction)

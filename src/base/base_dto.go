@@ -1,5 +1,5 @@
 package base
 
 type LingYeDTO struct {
-	ID uint `json:"id" form:"id"`
+	ID uint64 `json:"id" form:"id"`
 }

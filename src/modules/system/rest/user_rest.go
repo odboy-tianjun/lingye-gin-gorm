@@ -26,7 +26,7 @@ func DescribeUsers(c *gin.Context) {
 
 func DescribeUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
-	user := userService.DescribeUserById(util.StringToUInt(id))
+	user := userService.DescribeUserById(util.StringToUInt64(id))
 	if user.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
 			"code":    http.StatusNotFound,
@@ -54,7 +54,7 @@ func CreateUser(c *gin.Context) {
 
 func ModifyUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
-	localUser := userService.DescribeUserById(util.StringToUInt(id))
+	localUser := userService.DescribeUserById(util.StringToUInt64(id))
 	if localUser.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{
 			"code":    http.StatusNotFound,
@@ -74,7 +74,7 @@ func ModifyUserById(c *gin.Context) {
 
 func DeleteUserById(c *gin.Context) {
 	id := c.Params.ByName("id")
-	uid := util.StringToUInt(id)
+	uid := util.StringToUInt64(id)
 	localUser := userService.DescribeUserById(uid)
 	if localUser.ID == 0 {
 		c.JSON(http.StatusNotFound, gin.H{

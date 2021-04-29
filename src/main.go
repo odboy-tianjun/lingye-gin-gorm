@@ -10,7 +10,7 @@ func main() {
 	new(config.ApplicationProperties).Init()
 	// 初始化redis
 	new(middleware.RedisPool).Init()
-	// 初始化gorm
+	// 初始化gorm, 注册表
 	new(config.DataSourcePool).Connect().LoadEntity()
 	// 延时调用函数
 	defer config.SqlExcutor.Close()
