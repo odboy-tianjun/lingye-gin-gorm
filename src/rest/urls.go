@@ -25,6 +25,8 @@ type RequestApi struct {
 var Urls = [...]RequestApi{
 	// 定义请求方式和路径
 	{Mode: "get", RelativePath: "/sn", HandleFunction: DescribeSign},
+	// 获取所有用户
+	{Mode: "get", RelativePath: "/users", HandleFunction: api.DescribeUsers},
 	// v1
 	// 获取所有学生
 	{GroupName: "v1", Mode: "get", RelativePath: "/students", HandleFunction: v1.DescribeStudents},
