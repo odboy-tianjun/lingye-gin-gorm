@@ -1,17 +1,16 @@
 package main
 
 import (
+	"fmt"
 	"lingye-gin/src/config"
 	"lingye-gin/src/middleware"
-	v1 "lingye-gin/src/test/v1"
+	"lingye-gin/src/modules/system/entity"
+	"lingye-gin/src/util"
 )
 
 func main() {
 	// 初始化yaml配置
 	new(config.ApplicationProperties).Init()
-
-	v1.DescribeStudents(nil)
-
 	// 初始化redis
 	new(middleware.RedisPool).Init()
 	// 初始化gorm, 注册表
@@ -22,4 +21,12 @@ func main() {
 	new(middleware.JwtEngine).Init()
 	// 初始化gin
 	new(middleware.GinEngine).Start()
+}
+
+func Test() {
+	// 通过ID查询
+	var role entity.Role
+	util.SelectOne(role, "select * from sys_role where id = ?", 1)
+	fmt.Printf("SelectOne=%v", role)
+	// 查询列表
 }

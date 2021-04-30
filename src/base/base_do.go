@@ -6,7 +6,7 @@ import (
 
 type LingYeDO struct {
 	// 自增ID
-	ID uint64 `gorm:"column:id;type:bigint(20);not null;primary_key;AUTO_INCREMENT;comment:'自增ID'"`
+	ID uint64 `gorm:"primary_key"`
 	// 创建时间
 	CreatedAt time.Time `gorm:"comment:'创建时间'"`
 	// 更新时间
